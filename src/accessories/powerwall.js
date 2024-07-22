@@ -56,7 +56,7 @@ Powerwall.prototype = {
             .setCharacteristic(Characteristic.FirmwareRevision, '-')
             .setCharacteristic(Characteristic.SerialNumber, this.uniqueId);
         services.push(info);
-        
+
         this.stateSwitch = new Service.Switch(this.name, "1");
         this.stateSwitch
             .getCharacteristic(Characteristic.On)
@@ -65,7 +65,7 @@ Powerwall.prototype = {
         eventPolling(this.stateSwitch, Characteristic.On, this.pollingInterval);
         services.push(this.stateSwitch);
 
-        this.battery = 
+        this.battery =
             new Service.BatteryService(this.name + ' ' + 'Battery');
         this.battery
             .getCharacteristic(Characteristic.BatteryLevel)
@@ -82,7 +82,7 @@ Powerwall.prototype = {
         services.push(this.battery);
 
         if (this.additionalServices.homekitVisual) {
-            this.batteryVisualizer = 
+            this.batteryVisualizer =
                 new Service.Lightbulb(this.name + ' ' + 'Charge');
             this.batteryVisualizer
                 .getCharacteristic(Characteristic.On)
@@ -175,7 +175,7 @@ Powerwall.prototype = {
             _httpGetRequest(url, function(error, response, body) {
                 _checkRequestError(this.log, error, response, body);
                 callback(error);
-            }.bind(this));
+            }.bind(this));  // no cacheInterval
         }
 
         reset(this.stateSwitch, Characteristic.On, 1000 * 4);

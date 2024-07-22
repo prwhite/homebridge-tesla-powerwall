@@ -1,12 +1,17 @@
+
+let callCount = 0;
+
 /**
  * Returns a wrapper function that can be added directly to a characteristic that
  * will ensure that the plugin responds quickly to get requests.
- * @param {function} actualGetter 
- * @param {} log 
- * @returns 
+ * @param {function} actualGetter
+ * @param {} log
+ * @returns
  */
 module.exports = function createFastGetter(actualGetter, log) {
     let lastValue = null;
+
+    console.log(`FastGetter::create called ${++callCount} times`);
 
     return function(callback) {
         const characteristic = this;

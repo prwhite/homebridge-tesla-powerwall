@@ -4,7 +4,7 @@ var Polling = require('../helper/polling.js');
 var eventPolling = require('../helper/simple-event-polling.js');
 var reset = require('../helper/event-value-resetter.js');
 
-var _httpGetRequest = require('../helper/my-http-request.js');
+// var _httpGetRequest = require('../helper/my-http-request.js');
 var _checkRequestError = require('../helper/check-for-request-error.js');
 var _createFastGetter = require('../helper/fast-getter.js');
 
@@ -48,7 +48,7 @@ Gridstatus.prototype = {
             .setCharacteristic(Characteristic.FirmwareRevision, '-')
             .setCharacteristic(Characteristic.SerialNumber, this.uniqueId);
         services.push(info);
-        
+
         if (this.additionalServices.gridIsUpSwitch) {
             this.gridIsUpSwitch = new Service.Switch(this.name + ' "Up"', '1');
             this.gridIsUpSwitch
@@ -58,7 +58,7 @@ Gridstatus.prototype = {
             eventPolling(this.gridIsUpSwitch, Characteristic.On, this.pollingInterval);
             services.push(this.gridIsUpSwitch);
         }
-        
+
         if (this.additionalServices.gridIsDownSwitch) {
             this.gridIsDownSwitch = new Service.Switch(this.name + ' "Down"', '2');
             this.gridIsDownSwitch

@@ -1,5 +1,4 @@
 var request  = require('request');
-
 var cache = {}
 
 /**
@@ -13,10 +12,10 @@ module.exports = function(url, callback, cacheInterval) {
     if (cacheInterval) {
         var cached = cache[url];
         if (cached && (Date.now() - cacheInterval) < cached.whenCached) {
-            // `setTimeout` is used here to call the callback in a non-blocking 
+            // `setTimeout` is used here to call the callback in a non-blocking
             // way.
             //
-            // While there should be no reason why a blocking callback would 
+            // While there should be no reason why a blocking callback would
             // not work here, calling callbacks in a non-blocking way *should*
             // have been prefered in this codebase.
             setTimeout(function() {
@@ -41,6 +40,8 @@ module.exports = function(url, callback, cacheInterval) {
                     response,
                     body,
                 };
+                // Log the cache size to the log instance.
+                console.log('Cache size:', Object.keys(cache).length);
             }
 
             callback(error, response, body, false);
